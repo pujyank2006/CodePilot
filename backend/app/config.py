@@ -8,7 +8,8 @@ class Settings(BaseSettings):
     debug: bool = True
     api_prefix: str = "/api/v1"
     frontend_origin: str = "http://localhost:5173"
-    llm_api_key: str | None = None
+    gemini_api_key: str = ""
+    gemini_model: str = "gemini-3.1-flash-lite"
 
     model_config = SettingsConfigDict(
         env_file=".env",
