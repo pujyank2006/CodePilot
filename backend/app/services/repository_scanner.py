@@ -19,6 +19,7 @@ DEFAULT_IGNORES = [
     "*.key",
     "id_rsa",
     "id_ed25519",
+    ".gitignore"
 ]
 
 class RepositoryScanner:
