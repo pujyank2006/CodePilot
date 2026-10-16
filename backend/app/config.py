@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     frontend_origin: str = "http://localhost:5173"
     gemini_api_key: str = ""
     gemini_model: str = "gemini-3.1-flash-lite"
+    gemini_embedding_model: str = "gemini-embedding-001"
 
     model_config = SettingsConfigDict(
         env_file=".env",
