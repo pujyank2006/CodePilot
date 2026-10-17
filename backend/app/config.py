@@ -12,6 +12,9 @@ class Settings(BaseSettings):
     gemini_model: str = "gemini-3.1-flash-lite"
     gemini_embedding_model: str = "gemini-embedding-001"
 
+    qdrant_path: str = "./qdrant_data"
+    qdrant_collection: str = "codebase"
+
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",
