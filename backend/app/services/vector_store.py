@@ -9,7 +9,7 @@ class VectorStore:
             self,
             location: str = "./qdrant_data",
             collection_name: str = "codebase",
-            vector_size: int = 768,
+            vector_size: int = 3072,
     ):
         self.collection_name = collection_name
         self.vector_size = vector_size
