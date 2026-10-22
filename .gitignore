@@ -30,3 +30,4 @@ Thumbs.db
 # Local databases and generated data
 *.db
 *.sqlite3
+backend/qdrant_data/
