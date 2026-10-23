@@ -1,5 +1,6 @@
 import asyncio
 from pathlib import Path
+from typing import Any
 from app.llm.client import LLMClient
 from app.schemas.code_chunk import CodeChunk
 from app.services.code_chunker import CodeChunker
@@ -74,7 +75,8 @@ class RepositoryIndexer:
             if idx % 5 == 0 or idx == len(all_chunks):
                 print(f"[Indexer] Embedding chunk {idx}/{len(all_chunks)}...")
 
-            vector = await self.llm_client.embed(chunk.content)
+            text_to_embed = f"File: {chunk.path}\nLanguage: {chunk.language}\n\n{chunk.content}"
+            vector = await self.llm_client.embed(text_to_embed)
             embeddings.append(vector)
 
             await asyncio.sleep(1.0)
@@ -84,3 +86,20 @@ class RepositoryIndexer:
         print(f"[Indexer] Successfully indexed and persisted {len(all_chunks)} chunks.")
 
         return len(all_chunks)
+
+    async def search(
+            self,
+            query: str,
+            limit: int = 5,
+            filter_language: str | None = None,
+    ) -> list[dict[str, Any]]:
+        cleaned_query = query.strip()
+        if not cleaned_query:
+            return []
+
+        query_vector = await self.llm_client.embed(cleaned_query)
+        return self.vector_store.search(
+            query_vector = query_vector,
+            limit = limit,
+            filter_language = filter_language
+        )
