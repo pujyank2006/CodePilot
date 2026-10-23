@@ -29,3 +29,26 @@
 3. can't remember
 4. code generated, previous output
 5. yes
+
+
+---
+
+# Week 1 Capstone (Days 5–7) Learning Log
+
+## Learned
+- **High-Dimensional Embeddings**: Text and code are projected into 3072-dimensional geometric space where conceptual similarity equals directional alignment.
+- **Cosine Similarity**: Measures vector direction independent of text length (\(\cos \theta = \frac{A \cdot B}{\|A\| \|B\|}\)).
+- **Vector Indexing & Qdrant**: Why brute-force linear search fails at scale and how Approximate Nearest Neighbor (ANN) vector databases provide fast top-K retrieval.
+- **Context Enrichment**: Embedding raw code lines alone loses file context; prefixing chunks with file path and language significantly improves semantic retrieval precision.
+- **Idempotency**: Using deterministic UUID hashing prevents duplicate vectors during re-indexing.
+
+## Built
+- `app/services/similarity.py`: Pure Python vector cosine similarity calculator.
+- `app/services/vector_store.py`: Qdrant vector store with metadata filtering and idempotent upserts.
+- `app/services/indexer.py`: End-to-end repository indexer with unified search.
+- Automated end-to-end test suite (`test_indexing_e2e.py`, `test_vector_store.py`, `test_similarity.py`).
+
+## What I can explain without AI
+- The entire path a source file takes from disk into a vector database.
+- Why overlap is required when chunking code.
+- How to search a codebase semantically using natural language questions.
