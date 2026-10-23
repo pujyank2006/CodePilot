@@ -40,7 +40,7 @@ class VectorStore:
             embeddings: list[list[float]],
     ) -> None:
         if len(chunks) != len(embeddings):
-            raise ValueError("Chunks and embeddings count must watch")
+            raise ValueError("Chunks and embeddings count must match")
 
         if not chunks:
             return
