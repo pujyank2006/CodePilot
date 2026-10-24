@@ -25,6 +25,7 @@ class RetrievalService:
 
         query_vector = await self.llm_client.embed(cleaned_query)
 
+        # Retrieve a few extra points (top_k * 2) so we have enough after min_score filtering
         fetch_limit = max(top_k * 2, 10)
         raw_results = self.vector_store.search(
             query_vector = query_vector,
@@ -32,6 +33,7 @@ class RetrievalService:
             filter_language = filter_language
         )
 
+        # Filter by minimum score and convert to RetrievedChunk models
         selected_chunks: list[RetrievedChunk] = []
         total_chars = 0
 
@@ -51,6 +53,7 @@ class RetrievalService:
                     score = score
                 )
 
+            # Context budget check: stop if adding this chunk exceeds character limit
             if max_characters and (total_chars + len(chunk.content) > max_characters):
                 break
 
