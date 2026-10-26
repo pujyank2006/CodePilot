@@ -19,7 +19,7 @@ class RAGPromptBuilder:
 
         formatted_sections = []
         for idx, chunk in enumerate(chunks, start = 1):
-            header = f"--- [Snippet #{idx}] File: {chunk.path} (Lines {chunk.start_line} - {chunk.end_line}) | Relevance: {chunk.score:.2f} ---"
+            header = f"--- [Snippet #{idx}] File: {chunk.path} (Lines {chunk.start_line}-{chunk.end_line}) | Relevance: {chunk.score:.2f} ---"
             code_fence = f"```{chunk.language}\n{chunk.content}\n```"
             formatted_sections.append(f"{header}\n{code_fence}")
 
